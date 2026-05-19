@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        select option {
+            background-color: #1e293b; /* Tailwind slate-800 */
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white min-h-screen flex items-center justify-center p-6">
+
+    <div class="max-w-xl w-full">
+        <!-- Contact Form Section -->
+        <div class="glass p-10 rounded-3xl relative overflow-hidden">
+            <!-- Decorative blur blob -->
+            <div class="absolute -top-16 -right-16 w-32 h-32 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+            <div class="absolute -bottom-16 -left-16 w-32 h-32 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+
+            <div class="text-center mb-8 relative z-10">
+                <h2 class="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400 mb-3 tracking-tight">Get in Touch</h2>
+                <p class="text-slate-400 text-sm font-medium">Send us a message and we'll reply to you via Email and WhatsApp.</p>
+            </div>
+
+            <form id="contact-form" class="space-y-6 relative z-10">
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1.5 ml-1">Name</label>
+                    <input type="text" id="name" required placeholder="John Doe" class="w-full bg-slate-800/40 border border-slate-700/60 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all">
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-1.5 ml-1">Email</label>
+                        <input type="email" id="email" required placeholder="john@example.com" class="w-full bg-slate-800/40 border border-slate-700/60 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-1.5 ml-1">WhatsApp Number</label>
+                        <div class="flex shadow-sm rounded-xl">
+                            <div class="flex items-center bg-slate-800/60 border border-slate-700/60 border-r-0 rounded-l-xl focus-within:ring-2 focus-within:ring-blue-500/50 focus-within:border-blue-500 transition-all">
+                                <span class="text-slate-400 font-medium pl-3 pr-1">+</span>
+                                <input type="tel" id="country-code" required placeholder="91" class="w-12 bg-transparent text-white placeholder-slate-500 py-3 focus:outline-none text-center">
+                            </div>
+                            <input type="tel" id="phone" required placeholder="1234567890" class="flex-1 bg-slate-800/40 border border-slate-700/60 rounded-r-xl px-3 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1.5 ml-1">Message</label>
+                    <textarea id="message" required rows="4" placeholder="How can we help you?" class="w-full bg-slate-800/40 border border-slate-700/60 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all resize-none"></textarea>
+                </div>
+
+                <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold py-3.5 px-6 rounded-xl transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/25 flex justify-center items-center mt-2">
+                    <span>Send Message</span>
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+
+                <div id="form-msg" class="hidden text-center text-sm font-medium p-4 rounded-xl mt-4 transition-all"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submit-btn');
+            const formMsg = document.getElementById('form-msg');
+            const originalBtnText = btn.innerHTML;
+            
+            btn.innerHTML = '<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+            btn.disabled = true;
+            formMsg.classList.add('hidden');
+            formMsg.classList.remove('block');
+
+            const countryCode = document.getElementById('country-code').value;
+            const phoneStr = document.getElementById('phone').value;
+            // Clean phone string to ensure no random symbols, keeps only numbers
+            const fullPhone = (countryCode + phoneStr).replace(/\D/g, '');
+
+            const payload = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: fullPhone,
+                message: document.getElementById('message').value
+            };
+
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    formMsg.textContent = 'Message sent successfully! We will contact you soon.';
+                    formMsg.className = 'block text-center text-sm font-medium p-4 rounded-xl mt-4 bg-green-500/10 text-green-400 border border-green-500/20';
+                    document.getElementById('contact-form').reset();
+                } else {
+                    throw new Error(result.error || 'Failed to send message');
+                }
+            } catch (error) {
+                formMsg.textContent = error.message;
+                formMsg.className = 'block text-center text-sm font-medium p-4 rounded-xl mt-4 bg-red-500/10 text-red-400 border border-red-500/20';
+            } finally {
+                btn.innerHTML = originalBtnText;
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
